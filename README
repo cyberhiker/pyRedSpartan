@@ -1,0 +1,10 @@
+Converting RedSpartan from a VB.NET / SQL Server app to a Python / MongoDB / Flask App
+
+Requirements:
+* Python 3
+* MongoDB
+* Flask Framework http://flask.pocoo.org
+* PyMongo (pip install pymongo)
+* MongoEngine (pip install mongoengine)
+* Flask Bcrypt extension for encrypting your login passwords (pip install flask-bcrypt)
+* Flash CSRF extension for protecting you app against cross-site forgery (pip install flask-csrf)

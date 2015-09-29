@@ -1,0 +1,5 @@
+flask
+Flask-WTF
+MongoEngine
+Flask-BCrypt
+Flask-CSRF

@@ -1,0 +1,275 @@
+a {
+	color: #666666;
+	text-decoration: underline;
+}
+.anchor
+{
+	text-decoration: none;
+}
+a:hover {
+	color: #888888;
+	text-decoration: none;
+}
+acronym {
+	border-bottom: 1px dotted #666666;
+	cursor: help;
+}
+body{
+	background-color: #FFFFFF;
+	font-family: Verdana;
+	font-size: 8pt;
+	color: #333333;
+	margin: 10px;
+	padding: 0px;
+}
+h1{
+	color:#666666;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 13px;
+	margin: 0px 0px 0px 10px;
+	padding: 0px;
+}
+h2{
+	color:#666666;
+	font-family: Verdana;
+	font-size: 18px;
+	line-height: 13px;
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	text-align:right;
+}
+h3{
+	color:#666666;
+	font-family: Verdana;
+	font-size: 10pt;
+	line-height: 10pt;
+	margin: 10px 0px 3px 0px;
+	padding: 0px;
+	text-align:left;
+}
+TD
+{
+	font-family: Verdana;
+	font-size: 8pt;
+}
+TH
+{
+    color:#666666;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+}
+TH.CreateHeader
+{
+    color:#666666;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	text-align: right;
+}
+.EmbedHeader
+{
+    color:#666666;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+}
+TextArea
+{
+	font-family: 	Verdana;
+	font-size: 		8pt;
+}
+SELECT
+{
+	font-family: 	Verdana;
+	font-size:		8pt;
+}
+INPUT
+{
+	font-family: 	Verdana;
+	font-size:		8pt;
+}
+Button
+{
+	font-family: 	Verdana;
+	font-size:		8pt;
+}
+.contentleft{
+}
+.contentmain{
+	background-color:#F9F8F7;
+	padding:5px;
+}
+.contentright{
+}
+
+.error
+{
+    font-weight :bold;
+    color:Red;
+    text-align: center;
+}
+
+.greybox{
+	background-color: #DEDEDE;
+	color:#666666;
+}
+.greybox-smalltext{
+	font-size:1px;
+	background-color: #DEDEDE;
+	color:#666666;
+}
+.greybox-topright{
+	font-size:1px;
+	background: url(/static/images/css/3-topright.gif);
+	color:#666666;
+}
+.greybox-bottomleft{
+	font-size:1px;
+	background: url(/static/images/css/3-bottomleft.gif);
+	color:#666666;
+}
+.header{
+	background-color: #CCCCCC;
+	font-size: 36px;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+	color: #E10000;
+	line-height: 24px;
+	font-weight: bold;
+}
+.headertext
+{
+	text-decoration: none;
+	font-size: 36px;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+	color: #E10000;
+	line-height: 36px;
+	font-weight: bold;
+}
+.lblSuccess
+{
+    color:Red;
+    font-weight:bold;
+    width:100%;
+    vertical-align:middle;
+    text-align:center;
+}
+
+.submitLink {
+    background-color: transparent;
+    text-decoration: underline;
+    border: none;
+    cursor: pointer;
+}
+
+.menubox{
+	background-color: #484848;
+	color:#F9F8F7;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+	border-color: #F9F8F7
+}
+.menusmallfontbox{
+	font:1px;
+	background-color: #484848;
+	color:#F9F8F7;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+}
+.menu-topright{
+	font:1px;
+	color:#F9F8F7;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+}
+.menu-bottomleft{
+	font:1px;
+	color:#F9F8F7;
+	font-family: Trebuchet MS, Verdana, Arial, Helvetica, sans-serif;
+}
+.menubox a{
+	color:#BDBDBD;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+.menubox a:hover{
+	color:#FFFFFF;
+	text-decoration: none;
+}
+.menubox a.selected{
+	color:#FFFFFF;
+}
+.searchbox {
+	font-size: 11px;
+	padding:1px 2px 1px 2px;
+	border:1px solid #999999;
+	color:#666666;
+	background:#F6F6F6;
+	text-align:right;
+}
+.subheader{
+	background-color: #E10000; /*D6C43A;*/
+}
+.whitebox{
+	background-color: #FFFFFF;
+	color:#666666;
+	border: 0px none;
+	padding: 0px;
+}
+.whitesmallfontbox{
+	background-color: #FFFFFF;
+	color:#666666;
+	border: 0px none;
+	padding: 0px;
+	font-size: 1px;
+}
+.whitebox_topleft{
+	background-image: url(/static/images/css/1-topleft.gif);
+	color:#666666;
+	vertical-align:top;
+	text-align:left;
+	border: 0px none;
+	width:9px;
+	font-size:4px;
+}
+.whitebox_bottomright{
+	background-image: url(/static/images/css/1-bottomright.gif);
+	color:#666666;
+	vertical-align:bottom;
+	text-align:right;
+	border: 0px none;
+	width:9px;
+	font-size:4px;
+}
+
+.drag_drop_grid
+{
+   margin:5px;
+    padding:5px;
+    border-collapse:collapse;
+}
+
+.drag_drop_gridstyle
+{
+   margin:5px;
+    padding:5px;
+    border-collapse:collapse;
+}
+
+.proceduretr
+{
+    border: 1px solid black;
+
+}
+
+html > body .drag_drop_grid
+{
+    height: 1.5em;
+    line-height: 1.2em;
+}
+
+.ui-state-highlight
+{
+    height: 1.5em;
+    line-height: 1.2em;
+    background:blue;
+}
