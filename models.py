@@ -1,6 +1,6 @@
 from mongoengine import *
 
-connect('redspartan', username='chris', password='nothing', host='localhost')
+connect('redspartan', host='mongodb://chris:nothing@ds051853.mongolab.com:51853/heroku_ct5mswpv')
 
 class User(Document):
     email = StringField(required=True)
