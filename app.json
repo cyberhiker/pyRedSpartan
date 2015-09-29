@@ -1,0 +1,8 @@
+{
+  "name":"pyRedSpartan",
+  "scripts":{},
+  "env":{},
+  "addons":[
+    "mongolab"
+  ]
+}
