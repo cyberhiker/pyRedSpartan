@@ -8,4 +8,4 @@ MarkupSafe
 SQLAlchemy
 Werkzeug
 gunicorn
-psycopg
+psycopg2
