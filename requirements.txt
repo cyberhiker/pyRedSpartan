@@ -1,5 +1,11 @@
-flask
+Flask
+Flask-SQLAlchemy
 Flask-WTF
-MongoEngine
 Flask-BCrypt
 Flask-CSRF
+Jinja2
+MarkupSafe
+SQLAlchemy
+Werkzeug
+gunicorn
+psycopg2
