@@ -2,7 +2,7 @@ Flask
 Flask-SQLAlchemy
 Flask-WTF
 Flask-CSRF
-BCrypt
+Flask-BCrypt
 Jinja2
 MarkupSafe
 SQLAlchemy
