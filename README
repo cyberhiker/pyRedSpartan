@@ -3,4 +3,5 @@ Converting RedSpartan from a VB.NET / SQL Server app to a Python / PostgreSQL / 
 Requirements:
 * Python 3
 * PostgreSQL
-* See [requirements.txt](requirements.txt) for Python modules needed.
+
+Containers to make the install process easier are in process.
