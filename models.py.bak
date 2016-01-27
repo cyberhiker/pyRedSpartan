@@ -1,26 +1,72 @@
-from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, Boolean
+from sqlalchemy import *
 from sqlalchemy.engine.url import URL
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
-import logging
-import os
-import settings
 
-app = Flask(__name__)
-app.config.from_object('settings')
-db = SQLAlchemy(app)
+import settings
 
 def db_connect():
     """
     Performs database connection using database settings from settings.py.
     Returns sqlalchemy engine instance
     """
-    return create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+    return create_engine(URL(**settings.DATABASE))
 
-class NIST_800_53_r4_All_Requirements(db.Model):
+def create_table(engine):
+    """"""
+    DeclarativeBase.metadata.create_all(engine)
+
+class NIST_800_53_r3_High_Procedures(DeclarativeBase):
+	__tablename__ = '*800_53_r3_High_Procedures'
+
+	procedureid = Column(Integer, primary_key=True)
+	procedureid = Column('procedureid', Integer, nullable=False)
+	requirementid = Column('requirementid', Integer, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	sourceprocedure = Column('sourceprocedure', String, nullable=False)
+	vermethod = Column('vermethod', String, nullable=False)
+	overview = Column('overview', String, nullable=False)
+	stepnum = Column('stepnum', Integer, nullable=False)
+	roleid = Column('roleid', Integer, nullable=False)
+	evaluationsteps = Column('evaluationsteps', String, nullable=False)
+	expectedresults = Column('expectedresults', String, nullable=False)
+	depson = Column('depson', Integer, nullable=False)
+	depentresult = Column('depentresult', Integer, nullable=False)
+
+
+class NIST_800_53_r3_Moderate_Procedures(DeclarativeBase):
+	__tablename__ = '*800_53_r3_Moderate_Procedures'
+	procedureid = Column('procedureid', Integer, nullable=False)
+	requirementid = Column('requirementid', Integer, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	sourceprocedure = Column('sourceprocedure', String, nullable=False)
+	vermethod = Column('vermethod', String, nullable=False)
+	overview = Column('overview', String, nullable=False)
+	stepnum = Column('stepnum', Integer, nullable=False)
+	roleid = Column('roleid', Integer, nullable=False)
+	evaluationsteps = Column('evaluationsteps', String, nullable=False)
+	expectedresults = Column('expectedresults', String, nullable=False)
+	depson = Column('depson', Integer, nullable=False)
+	depentresult = Column('depentresult', Integer, nullable=False)
+
+
+class NIST_800_53_r3_Moderate_Requirements(DeclarativeBase):
+	__tablename__ = '*800_53_r3_Moderate_Requirements'
+
+	requirementid = Column('requirementid', Integer, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	controlclass = Column('controlclass', String, nullable=False)
+	controlfamily = Column('controlfamily', String, nullable=False)
+	controltitle = Column('controltitle', String, nullable=False)
+	controltext = Column('controltext', String, nullable=False)
+	supplementalguidance = Column('supplementalguidance', String, nullable=False)
+	controlenhancements = Column('controlenhancements', String, nullable=False)
+	references = Column('references', String, nullable=False)
+	priority = nchar(nullable=False)
+
+
+class NIST_800_53_r4_All_Requirements(DeclarativeBase):
 	__tablename__ = '*800_53_r4_All_Requirements'
 
-	requirementid = Column('requirementid', Integer, nullable=False, primary_key=True)
+	requirementid = Column('requirementid', Integer, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
 	controlfamily = Column('controlfamily', String, nullable=False)
 	controltitle = Column('controltitle', String, nullable=False)
@@ -29,10 +75,10 @@ class NIST_800_53_r4_All_Requirements(db.Model):
 	references = Column('references', String, nullable=False)
 
 
-class NIST_800_53_r4_Moderate_FedRAMP_Procedures(db.Model):
+class NIST_800_53_r4_Moderate_FedRAMP_Procedures(DeclarativeBase):
 	__tablename__ = '*800_53_r4_Moderate_FedRAMP_Procedures'
 
-	procedureid = Column('procedureid', Integer, nullable=False, primary_key=True)
+	procedureid = Column('procedureid', Integer, nullable=False)
 	requirementid = Column('requirementid', Integer, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
 	sourceprocedure = Column('sourceprocedure', String, nullable=False)
@@ -46,10 +92,10 @@ class NIST_800_53_r4_Moderate_FedRAMP_Procedures(db.Model):
 	depentresult = Column('depentresult', Integer, nullable=False)
 
 
-class NIST_800_53_r4_Moderate_FedRAMP_Requirements(db.Model):
+class NIST_800_53_r4_Moderate_FedRAMP_Requirements(DeclarativeBase):
 	__tablename__ = '*800_53_r4_Moderate_FedRAMP_Requirements'
 
-	requirementid = Column('requirementid', Integer, nullable=False, primary_key=True)
+	requirementid = Column('requirementid', Integer, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
 	subcontrol = Column('subcontrol', String, nullable=False)
 	controlfamily = Column('controlfamily', String, nullable=False)
@@ -58,10 +104,10 @@ class NIST_800_53_r4_Moderate_FedRAMP_Requirements(db.Model):
 	supplementalguidance = Column('supplementalguidance', String, nullable=False)
 
 
-class NIST_800_53_r4_Moderate_FedRAMP_Requirements1(db.Model):
+class NIST_800_53_r4_Moderate_FedRAMP_Requirements1(DeclarativeBase):
 	__tablename__ = '*800_53_r4_Moderate_FedRAMP_Requirements1'
 
-	requirementid = Column('requirementid', Integer, nullable=False, primary_key=True)
+	requirementid = Column('requirementid', Integer, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
 	subcontrol = Column('subcontrol', String, nullable=False)
 	controlfamily = Column('controlfamily', String, nullable=False)
@@ -70,10 +116,10 @@ class NIST_800_53_r4_Moderate_FedRAMP_Requirements1(db.Model):
 	supplementalguidance = Column('supplementalguidance', String, nullable=False)
 
 
-class NIST_800_53_r4_Moderate_Procedures(db.Model):
+class NIST_800_53_r4_Moderate_Procedures(DeclarativeBase):
 	__tablename__ = '*800_53_r4_Moderate_Procedures'
 
-	procedureid = Column('procedureid', Integer, nullable=False, primary_key=True)
+	procedureid = Column('procedureid', Integer, nullable=False)
 	requirementid = Column('requirementid', Integer, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
 	sourceprocedure = Column('sourceprocedure', String, nullable=False)
@@ -87,20 +133,156 @@ class NIST_800_53_r4_Moderate_Procedures(db.Model):
 	depentresult = Column('depentresult', Integer, nullable=False)
 
 
-class NIST_800_53_r4_Moderate_Requirements(db.Model):
+class NIST_800_53_r4_Moderate_Requirements(DeclarativeBase):
 	__tablename__ = '*800_53_r4_Moderate_Requirements'
 
-	requirementid = Column('requirementid', Integer, nullable=False, primary_key=True)
+	requirementid = Column('requirementid', Integer, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
 	controlfamily = Column('controlfamily', String, nullable=False)
 	controltitle = Column('controltitle', String, nullable=False)
 	controltext = Column('controltext', String, nullable=False)
 	supplementalguidance = Column('supplementalguidance', String, nullable=False)
 
-class ArchiveActivities(db.Model):
-	__tablename__ = 'ArchiveActivities'
 
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class NIST_800_53_r1_Moderate_Procedures(DeclarativeBase):
+	__tablename__ = '*800_53_r1_Moderate_Procedures'
+
+	procedureid = Column('procedureid', Integer, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	stepnum = Column('stepnum', Float, nullable=False)
+	intervieworder = Column('intervieworder', Integer, nullable=False)
+	roleid = Column('roleid', Integer, nullable=False)
+	vermethod = Column('vermethod', String, nullable=False)
+	overview = Column('overview', String, nullable=False)
+	evaluationsteps = Column('evaluationsteps', String, nullable=False)
+	expectedresults = Column('expectedresults', String, nullable=False)
+	ruletext = Column('ruletext', String, nullable=False)
+	depson = Column('depson', Integer, nullable=False)
+	depentresult = Column('depentresult', Integer, nullable=False)
+
+
+class NIST_800_53_r1_Moderate_Requirements(DeclarativeBase):
+	__tablename__ = '*800_53_r1_Moderate_Requirements'
+
+	requirementid = Column('requirementid', Integer, nullable=False)
+	source = Column('source', String, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	controlclass = Column('controlclass', String, nullable=False)
+	controlfamily = Column('controlfamily', String, nullable=False)
+	controltitle = Column('controltitle', String, nullable=False)
+	controltext = Column('controltext', String, nullable=False)
+	supplementalguidance = Column('supplementalguidance', String, nullable=False)
+	controlenhancements = Column('controlenhancements', String, nullable=False)
+	superceded = Column('superceded', String, nullable=False)
+	superedby = Column('superedby', String, nullable=False)
+
+
+class NIST_800_53_r2_High_Procedures(DeclarativeBase):
+	__tablename__ = '*800_53_r2_High_Procedures'
+
+	procedureid = Column('procedureid', Integer, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	stepnum = Column('stepnum', Float, nullable=False)
+	intervieworder = Column('intervieworder', Integer, nullable=False)
+	roleid = Column('roleid', Integer, nullable=False)
+	vermethod = Column('vermethod', String, nullable=False)
+	overview = Column('overview', String, nullable=False)
+	evaluationsteps = Column('evaluationsteps', String, nullable=False)
+	expectedresults = Column('expectedresults', String, nullable=False)
+	depson = Column('depson', Integer, nullable=False)
+	depentresult = Column('depentresult', Integer, nullable=False)
+
+
+class NIST_800_53_r2_High_Requirements(DeclarativeBase):
+	__tablename__ = '*800_53_r2_High_Requirements'
+
+	requirementid = Column('requirementid', Integer, nullable=False)
+	source = Column('source', String, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	controlclass = Column('controlclass', String, nullable=False)
+	controlfamily = Column('controlfamily', String, nullable=False)
+	controltitle = Column('controltitle', String, nullable=False)
+	controltext = Column('controltext', String, nullable=False)
+	supplementalguidance = Column('supplementalguidance', String, nullable=False)
+
+
+class NIST_800_53_r2_Low_Procedures(DeclarativeBase):
+	__tablename__ = '*800_53_r2_Low_Procedures'
+
+	procedureid = Column('procedureid', Integer, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	stepnum = Column('stepnum', Float, nullable=False)
+	intervieworder = Column('intervieworder', Integer, nullable=False)
+	roleid = Column('roleid', Integer, nullable=False)
+	vermethod = Column('vermethod', String, nullable=False)
+	overview = Column('overview', String, nullable=False)
+	evaluationsteps = Column('evaluationsteps', String, nullable=False)
+	expectedresults = Column('expectedresults', String, nullable=False)
+	depson = Column('depson', Integer, nullable=False)
+	depentresult = Column('depentresult', Integer, nullable=False)
+
+
+class NIST_800_53_r2_Low_Requirements(DeclarativeBase):
+	__tablename__ = '*800_53_r2_Low_Requirements'
+
+	requirementid = Column('requirementid', Integer, nullable=False)
+	source = Column('source', String, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	controlclass = Column('controlclass', String, nullable=False)
+	controlfamily = Column('controlfamily', String, nullable=False)
+	controltitle = Column('controltitle', String, nullable=False)
+	controltext = Column('controltext', String, nullable=False)
+	supplementalguidance = Column('supplementalguidance', String, nullable=False)
+
+
+class NIST_800_53_r2_Moderate_Procedures(DeclarativeBase):
+	__tablename__ = '*800_53_r2_Moderate_Procedures'
+
+	procedureid = Column('procedureid', Integer, nullable=False)
+	requirementid = Column('requirementid', Integer, nullable=False)
+	source = Column('source', String, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	sourceprocedure = Column('sourceprocedure', String, nullable=False)
+	vermethod = Column('vermethod', String, nullable=False)
+	overview = Column('overview', String, nullable=False)
+	stepnum = Column('stepnum', Integer, nullable=False)
+	roleid = Column('roleid', Integer, nullable=False)
+	evaluationsteps = Column('evaluationsteps', String, nullable=False)
+	expectedresults = Column('expectedresults', String, nullable=False)
+	depson = Column('depson', Integer, nullable=False)
+	depentresult = Column('depentresult', Integer, nullable=False)
+
+
+class NIST_800_53_r2_Moderate_Requirements(DeclarativeBase):
+	__tablename__ = '*800_53_r2_Moderate_Requirements'
+
+	requirementid = Column('requirementid', Integer, nullable=False)
+	source = Column('source', String, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	controlclass = Column('controlclass', String, nullable=False)
+	controlfamily = Column('controlfamily', String, nullable=False)
+	controltitle = Column('controltitle', String, nullable=False)
+	controltext = Column('controltext', String, nullable=False)
+	supplementalguidance = Column('supplementalguidance', String, nullable=False)
+
+
+class NIST_800_53_r3_All_Requirements(DeclarativeBase):
+	__tablename__ = '*800_53_r3_All_Requirements'
+
+	requirementid = Column('requirementid', Integer, nullable=False)
+	sourceparagraph = Column('sourceparagraph', String, nullable=False)
+	controlclass = Column('controlclass', String, nullable=False)
+	controlfamily = Column('controlfamily', String, nullable=False)
+	controltitle = Column('controltitle', String, nullable=False)
+	controltext = Column('controltext', String, nullable=False)
+	supplementalguidance = Column('supplementalguidance', String, nullable=False)
+	controlenhancements = Column('controlenhancements', String, nullable=False)
+	references = Column('references', String, nullable=False)
+	priority = nchar(nullable=False)
+
+
+class ArchiveActivities(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	documentid = Column('documentid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	event = Column('event', String, nullable=False)
@@ -109,19 +291,15 @@ class ArchiveActivities(db.Model):
 	uploaderid = Column('uploaderid', String, nullable=False)
 
 
-class Artifacts(db.Model):
-	__tablename__ = 'Artifacts'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class Artifacts(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	assessmentid = Column('assessmentid', Integer, nullable=False)
 	documentid = Column('documentid', Integer, nullable=False)
 	procedureid = Column('procedureid', Integer, nullable=False)
 
 
-class AssessmentProgress(db.Model):
-	__tablename__ = 'AssessmentProgress'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class AssessmentProgress(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	roleid = Column('roleid', Integer, nullable=False)
 	assessor = Column('assessor', String, nullable=False)
@@ -132,37 +310,28 @@ class AssessmentProgress(db.Model):
 	createtime = Column('createtime', DateTime, nullable=False)
 
 
-class AssessmentRoles(db.Model):
-    __tablename__ = 'AssessmentRoles'
+class AssessmentRoles(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
+	role = Column('role', String, nullable=False)
+	description = Column('description', String, nullable=False)
+	type = Column('type', String, nullable=False)
 
-    id = Column('id', Integer, nullable=False, primary_key=True)
-    role = Column('role', String, nullable=False)
-    description = Column('description', String, nullable=False)
-    type = Column('type', String, nullable=False)
 
-    def __init__(self, role, description, type):
-        self.role = role
-        self.description = description
-        self.type = type
+class ComplianceStatuses(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
+	status = nchar(nullable=False)
 
-    def __repr__(self):
-        return '<Role %r>' % self.role
 
-'''
-class CrossReferences(db.Model):
-	__tablename__ = 'CrossReferences'
-
-	crossrefid = Column('crossrefid', Integer, nullable=False, primary_key=True)
+class CrossReferences(DynamicDocument):
+	crossrefid = Column('crossrefid', Integer, nullable=False)
 	source1table = Column('table', String, nullable=False)
 	source2table = Column('table', String, nullable=False)
 	source1id = Column('id', Integer, nullable=False)
 	source2id = Column('id', Integer, nullable=False)
-'''
 
-class DocumentActivity(db.Model):
-	__tablename__ = 'DocumentActivity'
 
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class DocumentActivity(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	documentid = Column('documentid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	event = Column('event', String, nullable=False)
@@ -171,10 +340,8 @@ class DocumentActivity(db.Model):
 	uploaderid = Column('uploaderid', String, nullable=False)
 
 
-class Documents(db.Model):
-	__tablename__ = 'Documents'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class Documents(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	frilyname = Column('frilyname', String, nullable=False)
 	filename = Column('filename', String, nullable=False)
@@ -187,18 +354,14 @@ class Documents(db.Model):
 	checkedoutuserid = Column('checkedoutuserid', String, nullable=False)
 
 
-class FindingActionResults(db.Model):
-	__tablename__ = 'FindingActionResults'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class FindingActionResults(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	actionresult = Column('actionresult', String, nullable=False)
 	description = Column('description', String, nullable=False)
 
 
-class FindingActions(db.Model):
-	__tablename__ = 'FindingActions'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class FindingActions(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	findingid = Column('findingid', Integer, nullable=False)
 	actiondate = Column('actiondate', DateTime, nullable=False)
 	actioner = Column('actioner', String, nullable=False)
@@ -208,20 +371,16 @@ class FindingActions(db.Model):
 	entrydatetime = Column('entrydatetime', DateTime, nullable=False)
 
 
-class FindingRelationship(db.Model):
-	__tablename__ = 'FindingRelationship'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class FindingRelationship(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	findingid = Column('findingid', Integer, nullable=False)
 	procrefid = Column('procrefid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	type = Column('type', String, nullable=False)
 
 
-class Findings(db.Model):
-	__tablename__ = 'Findings'
-
-	findingid = Column('findingid', Integer, nullable=False, primary_key=True)
+class Findings(DynamicDocument):
+	findingid = Column('findingid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	findingtitle = Column('findingtitle', String, nullable=False)
 	riskrating = Column('riskrating', String, nullable=False)
@@ -230,10 +389,8 @@ class Findings(db.Model):
 	masterstatus = Column('masterstatus', Integer, nullable=False)
 
 
-class InterviewContacts(db.Model):
-	__tablename__ = 'InterviewContacts'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class InterviewContacts(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	roleid = Column('roleid', Integer, nullable=False)
 	firstname = Column('firstname', String, nullable=False)
@@ -250,10 +407,8 @@ class InterviewContacts(db.Model):
 	phone2 = Column('phone2', String, nullable=False)
 
 
-class InterviewProgress(db.Model):
-	__tablename__ = 'InterviewProgress'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class InterviewProgress(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	roleid = Column('roleid', Integer, nullable=False)
 	interviewer = Column('interviewer', String, nullable=False)
@@ -264,10 +419,8 @@ class InterviewProgress(db.Model):
 	createtime = Column('createtime', DateTime, nullable=False)
 
 
-class Messages(db.Model):
-	__tablename__ = 'Messages'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class Messages(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	fromuserid = Column('fromuserid', Integer, nullable=False)
 	touserid = Column('touserid', Integer, nullable=False)
 	subject = Column('subject', String, nullable=False)
@@ -276,10 +429,8 @@ class Messages(db.Model):
 	priority = Column('priority', String, nullable=False)
 
 
-class Nessus_Procedures(db.Model):
-	__tablename__ = 'Nessus_Procedures'
-
-	procedureid = Column('procedureid', Integer, nullable=False, primary_key=True)
+class Nessus_Procedures(DynamicDocument):
+	procedureid = Column('procedureid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	sourceid = Column('sourceid', String, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
@@ -294,36 +445,28 @@ class Nessus_Procedures(db.Model):
 	deponoperator = Column('deponoperator', String, nullable=False)
 
 
-class Platforms(db.Model):
-	__tablename__ = 'Platforms'
-
-	platformid = Column('platformid', Integer, nullable=False, primary_key=True)
+class Platforms(DynamicDocument):
+	platformid = Column('platformid', Integer, nullable=False)
 	platform = Column('platform', String, nullable=False)
 
 
-class PolicyParameters(db.Model):
-	__tablename__ = 'PolicyParameters'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class PolicyParameters(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	requirementsource = Column('requirementsource', String, nullable=False)
 	requirementid = Column('requirementid', Integer, nullable=False)
 	parameter = Column('parameter', String, nullable=False)
 	replacementvariable = Column('replacementvariable', String, nullable=False)
 
 
-class ProcedureActions(db.Model):
-	__tablename__ = 'ProcedureActions'
-
-	actionid = Column('actionid', Integer, nullable=False, primary_key=True)
+class ProcedureActions(DynamicDocument):
+	actionid = Column('actionid', Integer, nullable=False)
 	procedureid = Column('procedureid', Integer, nullable=False)
 	resultid = Column('resultid', Integer, nullable=False)
 	nextprocedureid = Column('nextprocedureid', Integer, nullable=False)
 
 
-class ProjectList(db.Model):
-	__tablename__ = 'ProjectList'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class ProjectList(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	name = Column('name', String, nullable=False)
 	abbreviation = Column('abbreviation', String, nullable=False)
 	purpose = Column('purpose', String, nullable=False)
@@ -340,10 +483,8 @@ class ProjectList(db.Model):
 	reviewgrouping = Column('reviewgrouping', String, nullable=False)
 
 
-class ProjectRequirements(db.Model):
-	__tablename__ = 'ProjectRequirements'
-
-	procrefid = Column('procrefid', Integer, nullable=False, primary_key=True)
+class ProjectRequirements(DynamicDocument):
+	procrefid = Column('procrefid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	projectrequirementid = Column('projectrequirementid', String, nullable=False)
 	source = Column('source', String, nullable=False)
@@ -365,25 +506,19 @@ class ProjectRequirements(db.Model):
 	findingid = Column('findingid', Integer, nullable=False)
 
 
-class ProjectTypes(db.Model):
-	__tablename__ = 'ProjectTypes'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class ProjectTypes(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	projecttype = Column('projecttype', String, nullable=False)
 	description = Column('description', String, nullable=False)
 
 
-class ResultList(db.Model):
-	__tablename__ = 'ResultList'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class ResultList(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	result = Column('result', String, nullable=False)
 
 
-class ReviewProgress(db.Model):
-	__tablename__ = 'ReviewProgress'
-
-	reviewid = Column('reviewid', Integer, nullable=False, primary_key=True)
+class ReviewProgress(DynamicDocument):
+	reviewid = Column('reviewid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	reviewer = Column('reviewer', String, nullable=False)
 	grouping = Column('grouping', String, nullable=False)
@@ -393,10 +528,8 @@ class ReviewProgress(db.Model):
 	masterarchive = Column('masterarchive', Boolean, nullable=False)
 
 
-class ReviewSummary(db.Model):
-	__tablename__ = 'ReviewSummary'
-
-	reviewid = Column('reviewid', Integer, nullable=False, primary_key=True)
+class ReviewSummary(DynamicDocument):
+	reviewid = Column('reviewid', Integer, nullable=False)
 	requirementid = Column('requirementid', Integer, nullable=False)
 	sourceparagraph = Column('sourceparagraph', String, nullable=False)
 	username = Column('username', String, nullable=False)
@@ -406,10 +539,8 @@ class ReviewSummary(db.Model):
 	originator = Column('originator', String, nullable=False)
 
 
-class Targets(db.Model):
-	__tablename__ = 'Targets'
-
-	targetid = Column('targetid', Integer, nullable=False, primary_key=True)
+class Targets(DynamicDocument):
+	targetid = Column('targetid', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	systemname = Column('systemname', String, nullable=False)
 	ipaddress = Column('ipaddress', String, nullable=False)
@@ -417,10 +548,8 @@ class Targets(db.Model):
 	entrydate = Column('entrydate', DateTime, nullable=False)
 
 
-class Tasks(db.Model):
-	__tablename__ = 'Tasks'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class Tasks(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	taskname = Column('taskname', String, nullable=False)
 	taskdescription = Column('taskdescription', String, nullable=False)
 	priority = Column('priority', String, nullable=False)
@@ -430,10 +559,8 @@ class Tasks(db.Model):
 	completed = Column('completed', Boolean, nullable=False)
 
 
-class TempDocuments(db.Model):
-	__tablename__ = 'TempDocuments'
-
-	id = Column('id', Integer, nullable=False, primary_key=True)
+class TempDocuments(DynamicDocument):
+	id = Column('id', Integer, nullable=False)
 	projectid = Column('projectid', Integer, nullable=False)
 	frilyname = Column('frilyname', String, nullable=False)
 	filename = Column('filename', String, nullable=False)
@@ -442,10 +569,8 @@ class TempDocuments(db.Model):
 	lastmodifiedid = Column('lastmodifiedid', Integer, nullable=False)
 	checkedout = Column('checkedout', Boolean, nullable=False)
 	checkedoutuserid = Column('checkedoutuserid', Integer, nullable=False)
-	initialuploaderid = Column('initialuploaderid', String, nullable=False)
+	initialuploaderid = IntField(nullable=False)
 
 
-class Verifications(db.Model):
-	__tablename__ = 'Verifications'
-
-	verificationmethod = Column('verificationmethod', String, nullable=False, primary_key=True)
+class Verifications(DynamicDocument):
+	verificationmethod = Column('verificationmethod', String, nullable=False)
