@@ -1,4 +1,5 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from werkzeug.debug import get_current_traceback
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.csrf import csrf
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -6,7 +7,7 @@ import logging
 import os
 
 app = Flask(__name__)
-app.config.from_object('settings')
+app.config.from_object('settings.Config')
 bcrypt = Bcrypt(app)
 csrf(app)
 db = SQLAlchemy(app)
@@ -15,7 +16,7 @@ from models import *
 
 @app.route('/')
 def index():
-    roles = AssessmentRoles.objects.all()
+    roles = AssessmentRoles.query.all()
     return render_template('index.html', roles=roles)
 
 @app.route('/record/<id>/')
@@ -55,6 +56,10 @@ def logout():
     flash('You were logged out')
     return redirect(url_for('index'))
 
+@app.errorhandler(404)
+def not_found(error):
+    return "404 error",404
+
 if __name__ == '__main__':
-    app.debug = app.config['DEBUG']
-    app.run(host = '0.0.0.0', port = '5000')
+    #app.debug = app.config['DEBUG']
+    app.run(host = '127.0.0.1', port = 5000)

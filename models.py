@@ -7,7 +7,7 @@ import os
 import settings
 
 app = Flask(__name__)
-app.config.from_object('settings')
+app.config.from_object('settings.Config')
 db = SQLAlchemy(app)
 
 def db_connect():
